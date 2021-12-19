@@ -1,7 +1,7 @@
 import os
 import locale
 import subprocess
-from .setter import port_change
+from . import setter
 
 
 def get_logs(cmd):
