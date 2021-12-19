@@ -121,7 +121,10 @@ def key_list():
     print("종료 하려면 아무키")
     key_ans = input("번호 ) ")
     print(list[int(key_ans)])
-    os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(list[key_ans])}")
+    try:
+        os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(list[int(key_ans)])}")
+    except:
+        return
 
 
 def show_key():
