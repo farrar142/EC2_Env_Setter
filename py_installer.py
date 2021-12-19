@@ -1,6 +1,7 @@
 import os
 import locale
 import subprocess
+import time
 from setter import *
 
 
@@ -38,21 +39,29 @@ def get_docker_repo():
         os.system("echo \"deb [arch=arm64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee / etc/apt/sources.list.d/docker.list > /dev/null")
 
 
-cmd_list1 = [
+system_list = [
     "sudo apt-get update -y && upgrade -y",
-    "sudo apt-get install openjdk-11-jdk -y",
+    "sudo apt-get install openjdk-11-jdk -y"
+]
+jenkins_list = [
     "sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -",
     "echo deb http://pkg.jenkins.io/debian-stable binary/  | sudo tee /etc/apt/sources.list.d/jenkins.list",
     "sudo apt-get install jenkins -y",
-    "sudo service jenkins restart",
-    "sudo apt-get install nginx -y",
-    "sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y",
-    "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-ketring.gpg",
+    "sudo service jenkins start"
 ]
-cmd_list2 = [
+
+nginx_list = [
     "sudo apt-get update",
-    "sudo snap install docker"
-    "sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null",
+    "sudo apt-get install nginx -y",
+]
+docker_list = [
+    "sudo apt-get update",
+    "sudo snap install docker",
+    "sudo addgroup --system docker",
+    "sudo adduser jenkins docker",
+    "sudo snap disable docker"
+    "sudo snap enable docker",
+    "sudo curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null",
     "sudo chmod +x /usr/local/bin/docker-compose",
     "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
     "sudo service docker start",
@@ -60,14 +69,20 @@ cmd_list2 = [
 
 ]
 
-for i in cmd_list1:
-    print(f"\ninstalling now {i}\n")
-    os.system(i)
-get_docker_repo()
-for i in cmd_list2:
-    print(f"\ninstalling now {i}\n")
-    os.system(i)
-port_change()
 
-# "sudo apt-get install docker-ce docker-ce-cli containerd.io -y"
-# "sudo apt-cache madison docker-ce docker-ce-cli -y"
+def install(list):
+    for i in list:
+        print(f"\n{i}\n")
+        os.system(i)
+        time.sleep(3)
+
+
+print("운영체제 최신화")
+install(system_list)
+print("젠킨스 설치")
+install(jenkins_list)
+print("nginx 설치")
+install(nginx_list)
+print("도커 설치")
+install(docker_list)
+port_change()
