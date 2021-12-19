@@ -40,7 +40,6 @@ def get_docker_imgs():
                 words = line.split(" ")
                 while '' in words:
                     words.remove('')
-                print(words)
                 result.append([words[0], words[2]])
     return result
 
@@ -89,11 +88,16 @@ def get_informs():
             except:
                 cur = i[2]
             if j[0] == cur:
-                i = i.append(j[1])
+                i = i.insert(3, j[1])
                 break
     return container
 
 
+strFormat = '\n%-20s%-15s%-10s%-15s%-10s%-7s%-10s'
+
 if __name__ == "__main__":
-    for i in get_informs():
-        print(i)
+    containers = get_informs()
+    print(strFormat % ("ContainerName", "ContainerID",
+          "ImgName", "ImageID", "Status", "Port", "IP"))
+    for i in containers:
+        print(strFormat % (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
