@@ -87,14 +87,14 @@ def install_all():
             exit()
     print("운영체제 최신화")
     install(system_list)
-    while (os.popen("systemctl | grep jenkins.service").read() != ""):
+    while (os.popen("systemctl | grep jenkins.service").read() == ""):
         print("젠킨스 설치")
         install(jenkins_list)
-    while (os.popen("systemctl | grep nginx.service").read() != ""):
+    while (os.popen("systemctl | grep nginx.service").read() == ""):
         print("nginx 설치")
         install(nginx_list)
-    print("도커 설치")
-    while (os.popen("snap list | grep docker").read() != ""):
+    while (os.popen("snap list | grep docker").read() == ""):
+        print("도커 설치")
         install(docker_list)
     port_change()
 
