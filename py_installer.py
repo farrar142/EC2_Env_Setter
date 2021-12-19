@@ -19,9 +19,9 @@ def get_logs(cmd):
 
 def get_cpu_info():
     if os.name == "nt":
-        return os.popen("WMIC CPU GET NAME")[1].split(" ")[0]
+        return os.popen("WMIC CPU GET NAME").read().split("\n")[2].split(" ")[0]
     elif os.name == "posix":
-        return os.popen("cat /proc/cpuinfo | grep \"model name\"").split(":", 2)[0].trim
+        return os.popen("cat /proc/cpuinfo | grep \"model name\"").split(":", 2)[0].strip()
 
 
 cmd_list = [
@@ -46,3 +46,4 @@ cmd_list = [
 # for i in cmd_list:
 #     os.system(i)
 # port_change()
+print(get_cpu_info())
