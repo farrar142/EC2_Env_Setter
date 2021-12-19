@@ -122,6 +122,7 @@ def key_list():
     key_ans = input("번호 ) ")
     try:
         keys_ans = int(key_ans)
+        print(list[key_ans])
         os.system(f"sudo cat /var/lib/jenkins/.ssh/{list[key_ans]}")
     except:
         return
