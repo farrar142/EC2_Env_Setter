@@ -41,5 +41,7 @@ def port_change():
     # config파일을 세팅하고.
     # nginx 재실행 시킴.
 if __name__ == "__main":
+    print("포트체인지")
     port_change()
+    print("재시작")
     os.system("sudo systemctl reload nginx")
