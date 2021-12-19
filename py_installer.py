@@ -19,12 +19,26 @@ def get_logs(cmd):
 
 def get_cpu_info():
     if os.name == "nt":
-        return os.popen("WMIC CPU GET NAME").read().split("\n")[2].split(" ")[0]
+        return os.popen("echo %PROCESSOR_ARCHITECTURE%").read().lower()
     elif os.name == "posix":
-        return os.popen("cat /proc/cpuinfo | grep \"model name\"").read().split(":", 2)[1].split(" ")[1].strip()
+        return os.popen("dpkg --print-architecture").read().lower()
 
 
-cmd_list = [
+def get_docker_repo():
+    type = get_cpu_info()
+    if type == "amd64":
+        # cpu가 x86_64 또는 amd64계열일 경우
+        os.system("echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null")
+
+    elif type == "armhf":
+        # cpu가 armhf계열일 경우
+        os.system("echo \"deb [arch=armhf signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee / etc/apt/sources.list.d/docker.list > /dev/null")
+    elif type == "arm64":
+        # cpu가 arm64계열일 경우
+        os.system("echo \"deb [arch=arm64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee / etc/apt/sources.list.d/docker.list > /dev/null")
+
+
+cmd_list1 = [
     "sudo apt-get update -y && upgrade -y",
     "sudo apt-get install openjdk-11-jdk",
     "sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -",
@@ -34,16 +48,22 @@ cmd_list = [
     "sudo apt-get install nginx -y",
     "sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release",
     "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-ketring.gpg",
-    "sudo apt-get install docker -y",
-    "sudo apt-get install docker-compose -y"
+]
+cmd_list2 = [
+    "sudo pat-get update",
+    "sudo apt-get install docker-ce docker-ce-cli containerd.io -y"
+    "sudo apt-cache madison docker-ce docker-ce-cli -y"
     "sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null",
     "sudo chmod +x /usr/local/bin/docker-compose",
     "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
     "sudo service docker start",
     "usermod -aG docker jenkins"
+
 ]
 
-# for i in cmd_list:
-#     os.system(i)
-# port_change()
-print(get_cpu_info())
+for i in cmd_list1:
+    os.system(i)
+get_docker_repo()
+for i in cmd_list2:
+    os.system(i)
+port_change()
