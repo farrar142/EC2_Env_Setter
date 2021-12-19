@@ -121,7 +121,6 @@ def key_list():
     print("확인 하려는 파일을 입력해주세요")
     print("종료 하려면 아무키")
     key_ans = input("번호 ) ")
-    print(keys[int(key_ans)])
     try:
         print("")
         os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(keys[int(key_ans)])}")
@@ -134,7 +133,7 @@ if __name__ == "__main__":
     all = os.popen("uname -v").read()
     _all = all.split(" ")[0].split("-")[0].split("~")[1].split(".")
 
-    print(f"current os version = \n{all}")
+    print(f"current os version = \n{all}\n")
     if int(_all[0]) < 20:
         if int(_all[1]) < 4:
             print("23~20.04-1 이상의 버전이 필요합니다.")
