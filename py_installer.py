@@ -40,17 +40,17 @@ def get_docker_repo():
 
 cmd_list1 = [
     "sudo apt-get update -y && upgrade -y",
-    "sudo apt-get install openjdk-11-jdk",
+    "sudo apt-get install openjdk-11-jdk -y",
     "sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -",
     "echo deb http://pkg.jenkins.io/debian-stable binary/  | sudo tee /etc/apt/sources.list.d/jenkins.list",
     "sudo apt-get install jenkins -y",
     "sudo service jenkins restart",
     "sudo apt-get install nginx -y",
-    "sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release",
+    "sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y",
     "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-ketring.gpg",
 ]
 cmd_list2 = [
-    "sudo pat-get update",
+    "sudo apt-get update",
     "sudo apt-get install docker-ce docker-ce-cli containerd.io -y"
     "sudo apt-cache madison docker-ce docker-ce-cli -y"
     "sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null",
@@ -62,10 +62,10 @@ cmd_list2 = [
 ]
 
 for i in cmd_list1:
-    print(i)
+    print("installing now " + i)
     os.system(i)
 get_docker_repo()
 for i in cmd_list2:
-    print(i)
+    print("installing now " + i)
     os.system(i)
 port_change()
