@@ -34,6 +34,7 @@ def port_change():
         target.write(i)
     config.close()
     target.close()
+    os.system("sudo systemctl reload nginx")
 
 
     # 이 스크립트가 메인으로 실행 될 때

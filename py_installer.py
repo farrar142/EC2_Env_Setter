@@ -1,6 +1,7 @@
 import os
 import locale
 import subprocess
+from .setter import port_change
 
 
 def get_logs(cmd):
@@ -35,3 +36,4 @@ cmd_list = [
 
 for i in cmd_list:
     os.system(i)
+port_change()
