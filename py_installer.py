@@ -1,7 +1,7 @@
 import os
 import locale
 import subprocess
-from . import setter
+from setter import *
 
 
 def get_logs(cmd):
