@@ -105,10 +105,10 @@ def get_jenkins_pwd():
 
 def make_ssh():
     os.system("sudo mkdir /var/lib/jenkins/.ssh")
-    id = input("id 를 입력하세요 )")
-    name = input("key 이름을 입력하세요 )")
+    id = input("id 를 입력하세요 ) ")
+    name = input("key 이름을 입력하세요 ) ")
     os.system(
-        f"sudo ssh-keygen -t rsa -b 4096 -C \"{id}\" -f / var/lib/jenkins/.ssh/{name}")
+        f"sudo ssh-keygen -t rsa -b 4096 -C \"{id}\" -f /var/lib/jenkins/.ssh/{name}")
     os.system("\n")
     os.system("\n")
 
@@ -127,7 +127,7 @@ while True:
     print("원하는 작업을 선택하세요")
     print("1.전체설치, 2.nginx 설정 3.jenkins 초기화 번호 4.젠킨스 ssh 키 만들기 5.젠킨스 ssh 확인")
     print("종료 하려면 아무키")
-    answer = input("번호 )")
+    answer = input("번호 ) ")
     if answer == "1":
         install_all()
     elif answer == "2":
