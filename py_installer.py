@@ -114,15 +114,18 @@ def make_ssh():
 
 
 def key_list():
-    list = os.popen("ls /var/lib/jenkins/.ssh").read().split("\n")
-    for index, i in enumerate(list):
+    keys = os.popen("ls /var/lib/jenkins/.ssh").read().split("\n")
+    keys = list(filter(None, keys))
+    for index, i in enumerate(keys):
         print(f"{index} 번 : {i}")
     print("확인 하려는 파일을 입력해주세요")
     print("종료 하려면 아무키")
     key_ans = input("번호 ) ")
-    print(list[int(key_ans)])
+    print(keys[int(key_ans)])
     try:
-        os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(list[int(key_ans)])}")
+        print("")
+        os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(keys[int(key_ans)])}")
+        print("")
     except:
         return
 
