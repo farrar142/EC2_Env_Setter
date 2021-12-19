@@ -40,7 +40,7 @@ def port_change():
     # 이 스크립트가 메인으로 실행 될 때
     # config파일을 세팅하고.
     # nginx 재실행 시킴.
-if __name__ == "__main":
+if __name__ == "__main__":
     print("포트체인지")
     port_change()
     print("재시작")
