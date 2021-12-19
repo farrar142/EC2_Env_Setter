@@ -62,8 +62,10 @@ cmd_list2 = [
 ]
 
 for i in cmd_list1:
+    print(i)
     os.system(i)
 get_docker_repo()
 for i in cmd_list2:
+    print(i)
     os.system(i)
 port_change()
