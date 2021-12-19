@@ -69,7 +69,7 @@ def get_docker_containers():
                 _result.append(get_logs(
                     "docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "+words[0]).strip("'"))
             except:
-                pass
+                _result = []
             result.append(_result)
     else:
         print("No Containers")
