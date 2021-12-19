@@ -120,11 +120,8 @@ def key_list():
     print("확인 하려는 파일을 입력해주세요")
     print("종료 하려면 아무키")
     key_ans = input("번호 ) ")
-    try:
-        print(list[int(key_ans)])
-        os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(list[key_ans])}")
-    except:
-        return
+    print(list[int(key_ans)])
+    os.system(f"sudo cat /var/lib/jenkins/.ssh/{str(list[key_ans])}")
 
 
 def show_key():
