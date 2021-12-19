@@ -68,6 +68,8 @@ docker_list = [
     "sudo usermod -aG docker jenkins"
 ]
 
+# 인스톨기능
+
 
 def install(list):
     for i in list:
@@ -77,14 +79,6 @@ def install(list):
 
 
 def install_all():
-    all = os.popen("uname -v").read()
-    _all = all.split(" ")[0].split("-")[0].split("~")[1].split(".")
-
-    print(f"current os version = {all}")
-    if int(_all[0]) < 20:
-        if int(_all[1]) < 4:
-            print("23~20.04-1 이상의 버전이 필요합니다.")
-            exit()
     print("운영체제 최신화")
     install(system_list)
     while (os.popen("systemctl | grep jenkins.service").read() == ""):
@@ -98,9 +92,13 @@ def install_all():
         install(docker_list)
     port_change()
 
+# 젠킨스 초기 비밀번호
+
 
 def get_jenkins_pwd():
     return os.popen("sudo cat /var/lib/jenkins/secrets/initialAdminPassword").read()
+
+# ssh키 만들기
 
 
 def make_ssh():
@@ -111,6 +109,8 @@ def make_ssh():
         f"sudo ssh-keygen -t rsa -b 4096 -C \"{id}\" -f /var/lib/jenkins/.ssh/{name}")
     os.system("\n")
     os.system("\n")
+
+# ssh키 확인
 
 
 def key_list():
@@ -130,24 +130,30 @@ def key_list():
         return
 
 
-def show_key():
-    pass
+if __name__ == "__main__":
+    all = os.popen("uname -v").read()
+    _all = all.split(" ")[0].split("-")[0].split("~")[1].split(".")
 
+    print(f"current os version = \n{all}")
+    if int(_all[0]) < 20:
+        if int(_all[1]) < 4:
+            print("23~20.04-1 이상의 버전이 필요합니다.")
+            exit()
 
-while True:
-    print("원하는 작업을 선택하세요")
-    print("1.전체설치, 2.nginx 설정 3.jenkins 초기화 번호 4.젠킨스 ssh 키 만들기 5.젠킨스 ssh 확인")
-    print("종료 하려면 아무키")
-    answer = input("번호 ) ")
-    if answer == "1":
-        install_all()
-    elif answer == "2":
-        port_change()
-    elif answer == "3":
-        get_jenkins_pwd()
-    elif answer == "4":
-        make_ssh()
-    elif answer == "5":
-        key_list()
-    else:
-        exit()
+    while True:
+        print("원하는 작업을 선택하세요")
+        print("1.전체설치, 2.nginx 설정 3.jenkins 초기화 번호 4.젠킨스 ssh 키 만들기 5.젠킨스 ssh 확인")
+        print("종료 하려면 아무키")
+        answer = input("번호 ) ")
+        if answer == "1":
+            install_all()
+        elif answer == "2":
+            port_change()
+        elif answer == "3":
+            get_jenkins_pwd()
+        elif answer == "4":
+            make_ssh()
+        elif answer == "5":
+            key_list()
+        else:
+            exit()
