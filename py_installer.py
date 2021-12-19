@@ -24,6 +24,8 @@ def get_cpu_info():
     elif os.name == "posix":
         return os.popen("dpkg --print-architecture").read().lower()
 
+# 우분투 20부터 snap을 사용하기 때문에 사용하지 않음.
+
 
 def get_docker_repo():
     type = get_cpu_info()
@@ -66,6 +68,7 @@ docker_list = [
     "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
     "sudo service docker start",
     "sudo usermod -aG docker jenkins"
+    "sudo usermod -aG docker $(whoami)"
 ]
 
 # 인스톨기능
@@ -90,7 +93,6 @@ def install_all():
     while (os.popen("snap list | grep docker").read() == ""):
         print("도커 설치")
         install(docker_list)
-    port_change()
 
 # 젠킨스 초기 비밀번호
 
