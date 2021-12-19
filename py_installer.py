@@ -2,7 +2,7 @@ import os
 import locale
 import subprocess
 import time
-from setter import *
+from py_nginx_setter import *
 
 
 def get_logs(cmd):
@@ -66,7 +66,6 @@ docker_list = [
     "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
     "sudo service docker start",
     "sudo usermod -aG docker jenkins"
-
 ]
 
 
