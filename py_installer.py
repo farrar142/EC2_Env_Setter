@@ -51,21 +51,23 @@ cmd_list1 = [
 ]
 cmd_list2 = [
     "sudo apt-get update",
-    "sudo apt-get install docker-ce docker-ce-cli containerd.io -y"
-    "sudo apt-cache madison docker-ce docker-ce-cli -y"
+    "sudo snap install docker"
     "sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null",
     "sudo chmod +x /usr/local/bin/docker-compose",
     "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
     "sudo service docker start",
-    "usermod -aG docker jenkins"
+    "sudo usermod -aG docker jenkins"
 
 ]
 
 for i in cmd_list1:
-    print("installing now " + i)
+    print(f"\ninstalling now {i}\n")
     os.system(i)
 get_docker_repo()
 for i in cmd_list2:
-    print("installing now " + i)
+    print(f"\ninstalling now {i}\n")
     os.system(i)
 port_change()
+
+# "sudo apt-get install docker-ce docker-ce-cli containerd.io -y"
+# "sudo apt-cache madison docker-ce docker-ce-cli -y"
