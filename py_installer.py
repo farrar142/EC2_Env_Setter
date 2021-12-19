@@ -21,7 +21,7 @@ def get_cpu_info():
     if os.name == "nt":
         return os.popen("WMIC CPU GET NAME").read().split("\n")[2].split(" ")[0]
     elif os.name == "posix":
-        return os.popen("cat /proc/cpuinfo | grep \"model name\"").read().split(":", 2)[1].strip()
+        return os.popen("cat /proc/cpuinfo | grep \"model name\"").read().split(":", 2)[1].split(" ")[0].strip()
 
 
 cmd_list = [
