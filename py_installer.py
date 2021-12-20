@@ -72,9 +72,9 @@ docker_list = [
 ]
 swap_list = [
     "sudo rm -rf /swapfile",
-    "sudo fallocate -l sizeG /swapfile",
-    "sudo dd if=/dev/zero of=/swapfile bs=sizeG count=32",
+    "sudo dd if=/dev/zero of=/swapfile bs=sizeM count=size",
     "sudo chmod 600 /swapfile",
+    "sudo fallocate -l sizeM /swapfile",
     "sudo mkswap /swapfile",
     "sudo swapon /swapfile",
     "sudo swapon -s",
@@ -141,14 +141,14 @@ def key_list():
 
 
 def swap_file():
-    print("스왑 파일 영역의 크기를 입력하세요 단위 G")
+    print("스왑 파일 영역의 크기를 입력하세요 단위 MB")
     size = input("입력 ) ")
     try:
         size = int(size)
     except:
         return
     for i in swap_list:
-        if "size" in i:
+        while "size" in i:
             i = i.replace("size", str(size))
         print(f"\n{i}\n")
         os.system(i)
