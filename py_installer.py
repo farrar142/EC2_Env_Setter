@@ -71,7 +71,8 @@ docker_list = [
     "sudo usermod -aG docker $(whoami)"
 ]
 swap_list = [
-    "sudo fallocate -l sizeM /swapfile",
+    "sudo rm -rf /swapfile"
+    "sudo fallocate -l sizeG /swapfile",
     "sudo dd if=/dev/zero of=/swapfile bs=sizeG count=32",
     "sudo chmod 600 /swapfile",
     "sudo mkswap /swapfile",
