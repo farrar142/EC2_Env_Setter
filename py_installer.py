@@ -161,7 +161,7 @@ if __name__ == "__main__":
     print(f"current os version = \n{all}\n")
     if int(_all[0]) < 20:
         if int(_all[1]) < 4:
-            print("23~20.04-1 이상의 버전이 필요합니다.")
+            print("Ubuntu 23~20.04-1 이상의 버전이 필요합니다.")
             exit()
 
     while True:
