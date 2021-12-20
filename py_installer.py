@@ -166,8 +166,9 @@ if __name__ == "__main__":
 
     while True:
         print("원하는 작업을 선택하세요")
-        print("1.전체설치, 2.nginx 설정 3.jenkins 초기화 번호 4.젠킨스 ssh 키 만들기 5.젠킨스 ssh 확인 6.스왑파일 설정")
-        print("종료 하려면 아무키")
+        print(
+            "1.전체설치, 2.nginx 설정 3.jenkins 초기화 번호 \n4.젠킨스 ssh 키 만들기 5.젠킨스 ssh 확인 6.스왑파일 설정")
+        print("종료 하려면 0")
         answer = input("번호 ) ")
         if answer == "1":
             install_all()
@@ -181,5 +182,5 @@ if __name__ == "__main__":
             key_list()
         elif answer == "6":
             swap_file()
-        else:
+        elif answer == "0":
             exit()
