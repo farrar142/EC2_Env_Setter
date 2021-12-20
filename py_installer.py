@@ -70,6 +70,14 @@ docker_list = [
     "sudo usermod -aG docker jenkins"
     "sudo usermod -aG docker $(whoami)"
 ]
+swap_list = [
+    "sudo fallocate -l sizeM /swapfile",
+    "sudo dd if=/dev/zero of=/swapfile bs=sizeM count=32",
+    "sudo chmod 600 /swapfile",
+    "sudo mkswap /swapfile",
+    "sudo swapon /swapfile",
+    "sudo swapon -s",
+]
 
 # 인스톨기능
 
@@ -129,6 +137,20 @@ def key_list():
         print("")
     except:
         return
+
+
+def swap_file():
+    print("스왑 파일 영역의 크기를 입력하세요 단위 MB")
+    size = input("입력 ) ")
+    try:
+        size = int(size)
+    except:
+        return
+    for i in swap_list:
+        if "size" in i:
+            i = i.replace("size", str(size))
+        print(f"\n{i}\n")
+        os.system(i)
 
 
 if __name__ == "__main__":
