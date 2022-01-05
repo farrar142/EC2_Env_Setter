@@ -155,14 +155,6 @@ def swap_file():
 
 
 if __name__ == "__main__":
-    all = os.popen("uname -v").read()
-    _all = all.split(" ")[0].split("-")[0].split("~")[1].split(".")
-
-    print(f"current os version = \n{all}\n")
-    if int(_all[0]) < 20:
-        if int(_all[1]) < 4:
-            print("Ubuntu 23~20.04-1 이상의 버전이 필요합니다.")
-            exit()
 
     while True:
         print("원하는 작업을 선택하세요")
